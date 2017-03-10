@@ -1,5 +1,7 @@
 package com.soibk.hackathon;
 
+import vn.hus.nlp.tokenizer.VietTokenizer;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,9 +17,10 @@ import javax.ws.rs.core.MediaType;
 public class TextProcessor {
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/{message}")
     public String fragmentText(@PathParam("message")String message){
+        System.out.println(message);
 //        Runtime rt = Runtime.getRuntime();
 //        Process pr;
 //        try {
@@ -35,7 +38,10 @@ public class TextProcessor {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        return TokenizerInstance.getTokenizer(message);
+        VietTokenizer vietTokenizer = SoiBKContextDeploy.getTokenizer();
+        String result = vietTokenizer.tokenize(message)[0];
+        System.out.println("kq: "+result);
+        return result;
     }
 
 }

@@ -38,6 +38,7 @@
     <orderEntry type="library" name="Maven: org.glassfish.jersey.media:jersey-media-jaxb:2.25.1" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: vntokenizer:tokenizer:4.1.1" level="project" />
     <orderEntry type="library" name="Maven: vntokenizer:nlp-sd:2.0.0" level="project" />
     <orderEntry type="library" name="Maven: vntokenizer:nlp-fsm:1.0.0" level="project" />
