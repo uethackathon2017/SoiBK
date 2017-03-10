@@ -13,43 +13,55 @@ function Seq2Seq:__init()
 
     --
     -- init encode layer 
-    local encoder       = nn.Sequential()
-    local lookupTable   = nn.LookupTableMaskZero(lengDict, lengWordVector)
-    local lstm          = nn.FastLSTM(lengWordVector, lengWordVector)
+    local lookupTableE  = nn.LookupTableMaskZero(lengDict, lengWordVector)
+    self.lstmEncoder    = nn.FastLSTM(lengWordVector, lengWordVector)
     local switchLayer   = nn.ConcatTable()              -- 1 input => n output
                             :add (nn.Identity())        -- for attention layer
                             :add (nn.Select(1,-1))      -- for decode layser
-    
-    encoder :add(lookupTable)
-            :add(nn.Sequencer(lstm:maskZero(1)))
-            :add(switchLayer)
-    self.encoder = encoder
-    print (self.encoder)
+    self.encoder        = nn.Sequential()
+                                :add(lookupTableE)
+                                :add(nn.Sequencer(self.lstmEncoder:maskZero(1)))
+                                -- :add(switchLayer)
 
     --
     -- init decode layer 
-    local   decoder       = nn.Sequential()
-            lookupTable   = nn.LookupTableMaskZero(lengDict, lengWordVector)
-            lstm          = nn.FastLSTM(lengWordVector, lengWordVector)            
+    local   lookupTableD  = nn.LookupTableMaskZero(lengDict, lengWordVector)
+    self.lstmDecoder      = nn.FastLSTM(lengWordVector, lengWordVector)            
     local   linear        = nn.Linear(lengWordVector, lengLabel)
     local   logSofmax     = nn.LogSoftMax()            
-    
-    decoder :add(lookupTable)
-            :add(nn.Sequencer(lstm:maskZero(1)))
-            :add(nn.Sequencer(nn.MaskZero(linear,1)))
-            :add(nn.Sequencer(nn.MaskZero(logSofmax,1)))
+    self.decoder          = nn.Sequential()
+                                :add(lookupTableD)
+                                :add(nn.Sequencer(self.lstmDecoder:maskZero(1)))
+                                :add(nn.Sequencer(nn.MaskZero(linear,1)))
+                                :add(nn.Sequencer(nn.MaskZero(logSofmax,1)))
                 
-
     --
     -- test model 
-    x  = torch.Tensor({{0,2,5}, {3,4,5}}):t()
-    print (x)
+    -- x  = torch.Tensor({{0,2,5}, {3,4,5}}):t()
+    -- print (x)
 
-    y  = encoder:forward(x)
-    print (y[1])
-    print (y[2])
-
-    return encoder
+    -- y  = self.encoder:forward(x)
+    -- print (lstmDecoder:get(1):get(1):get(1))
+	-- y  = decoder:forward(x)
 end
 
+--[[ Forward coupling: Copy encoder cell and output to decoder LSTM ]]--
+function Seq2Seq:forwardConnect(inputSeqLen)
+	self.lstmDecoder.userPrevOutput =
+    	rnn.recursiveCopy(self.lstmDecoder.userPrevOutput, self.lstmEncoder.outputs[inputSeqLen])
+	self.lstmDecoder.userPrevCell =
+    	rnn.recursiveCopy(self.lstmDecoder.userPrevCell, self.lstmEncoder.cells[inputSeqLen])
+end
 
+--[[ Backward coupling: Copy decoder gradients to encoder LSTM ]]--
+function Seq2Seq:backwardConnect(inputSeqLen)
+  	self.lstmEncoder:setGradHiddenState(inputSeqLen, self.lstmDecoder:getGradHiddenState(0))
+end
+
+--[[ Forward ]]--
+function Seq2Seq:forward(inputEncode, inputDecode)
+    self.encoder:forward(inputEncode)
+    self:forwardConnect(inputEncode:size(1))
+    out = self.decoder:forward(inputDecode)
+    print(out)
+end
