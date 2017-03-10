@@ -2,133 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d41170b7-88e7-44d9-8668-29d2f33d1db7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/Maven-install-lib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/commons-cli-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/junit.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/maxent-2.5.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/opennlp-tools-1.4.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/trove.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.fsm-1.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.sd-2.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin.tar.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/CHANGES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/LICENSE.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/README-en.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/README-vi.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/build.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/dist/vn.hus.nlp.tokenizer-4.1.1-src/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/commons-cli-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/junit.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/maxent-2.5.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/opennlp-tools-1.4.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/trove.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/vn.hus.nlp.fsm-1.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/lib/vn.hus.nlp.utils-1.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/sentDetection/VietnameseSD.bin.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/automata/dfaLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/automata/externalLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/bigram/bigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/bigram/unigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/lexers/lexers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/normalization/rules.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/models/tokenization/prefix/namedEntityPrefix.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/0.tok.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/0.tok.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/1.tok.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/1.tok.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/2.tok.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/2.tok.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/3.tok.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/3.tok.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/3.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/4.tok.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/samples/4.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/tokenizer.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/vn.hus.nlp.tokenizer-4.1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/vnTokenizer.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-bin/vnTokenizer.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1-src.tar.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.tokenizer-4.1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/vn.hus.nlp.utils-1.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/sentDetection/VietnameseSD.bin.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/automata/dfaLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/automata/externalLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/bigram/bigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/bigram/unigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/lexers/lexers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/normalization/rules.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/models/tokenization/prefix/namedEntityPrefix.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKStartupListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TokenizerInstance.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/sentDetection/VietnameseSD.bin.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/automata/dfaLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/automata/externalLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/bigram/bigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/bigram/unigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/lexers/lexers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/normalization/rules.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/models/tokenization/prefix/namedEntityPrefix.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/soibk/hackathon/SoiBKStartupListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/sentDetection/VietnameseSD.bin.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/automata/dfaLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/automata/externalLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/bigram/bigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/bigram/unigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/lexers/lexers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/normalization/rules.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/models/tokenization/prefix/namedEntityPrefix.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/tokenizer.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/com/soibk/hackathon/SoiBKStartupListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/sentDetection/VietnameseSD.bin.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/automata/dfaLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/automata/externalLexicon.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/bigram/bigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/bigram/unigram.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/lexers/lexers.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/normalization/rules.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/models/tokenization/prefix/namedEntityPrefix.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/tokenizer.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/soibk/hackathon/TokenizerInstance.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/com/soibk/hackathon/TokenizerInstance.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/soibk/hackathon/TextProcessor.class" afterPath="$PROJECT_DIR$/target/classes/com/soibk/hackathon/TextProcessor.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/com/soibk/hackathon/TextProcessor.class" afterPath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/classes/com/soibk/hackathon/TextProcessor.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/hieuapp_api_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/hieuapp_api_war_exploded.xml" />
@@ -136,8 +11,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hieuapp-api.iml" afterPath="$PROJECT_DIR$/hieuapp-api.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/target/hieuapp-api/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -153,11 +26,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TextProcessor.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TextProcessor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+            <state relative-caret-position="432">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,18 +41,18 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="49" column="54" lean-forward="true" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
+            <state relative-caret-position="463">
+              <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SoiBKContextDeploy.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SoiBKContextDeploy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKContextDeploy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="272">
+              <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#586#587#0" expanded="true" />
@@ -195,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="18" column="55" lean-forward="true" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+              <caret line="18" column="55" lean-forward="false" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -229,9 +102,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/ServletContextListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKServletContext.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKStartupListener.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKContextDeploy.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java" />
       </list>
     </option>
@@ -892,12 +765,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1489147388289</updated>
-      <workItem from="1489147391625" duration="14220000" />
+      <workItem from="1489147391625" duration="18186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14220000" />
+    <option name="totallyTimeSpent" value="18186000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -922,7 +795,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16408668" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40712073" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28605577" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1062,18 +935,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="49" column="54" lean-forward="true" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
-          <caret line="18" column="55" lean-forward="true" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+          <caret line="18" column="55" lean-forward="false" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
           <folding />
         </state>
       </provider>
@@ -1086,26 +951,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="463">
+          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/soibk/hackathon/SoiBKContextDeploy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state relative-caret-position="272">
+          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#586#587#0" expanded="true" />
             <element signature="e#633#634#0" expanded="true" />
             <element signature="e#724#725#0" expanded="true" />
             <element signature="e#756#757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/soibk/hackathon/TextProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
