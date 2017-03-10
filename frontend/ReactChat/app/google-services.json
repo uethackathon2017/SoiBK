@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "708571523761",
+    "firebase_url": "https://reactchat-54988.firebaseio.com",
+    "project_id": "reactchat-54988",
+    "storage_bucket": "reactchat-54988.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708571523761:android:acc5405d70845ccf",
+        "android_client_info": {
+          "package_name": "soibk.hust.reactchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708571523761-r6l7mk87f624jje7o073eotec8m5aa97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "soibk.hust.reactchat",
+            "certificate_hash": "052572895db3dcc2df4b53a167e7b4fe92a26bfa"
+          }
+        },
+        {
+          "client_id": "708571523761-u0s5itvj0dsjj987vjlpqtqphek1qjg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAse2lopeU676RN-uWzAEf8TKWst8nIDWs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708571523761-u0s5itvj0dsjj987vjlpqtqphek1qjg3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
