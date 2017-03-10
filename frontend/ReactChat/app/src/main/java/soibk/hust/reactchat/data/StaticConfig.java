@@ -20,5 +20,7 @@ public class StaticConfig {
     public static long TIME_TO_REFRESH = 10 * 1000;
     public static long TIME_TO_OFFLINE = 2 * 60 * 1000;
 
-
+    public static String KEY_SHOW_EMOTION = "id";
+    public static int VALUE_STOP_EMOTION = -1;
+    public static int VALUE_DEFAULT_EMOTION = 0;
 }

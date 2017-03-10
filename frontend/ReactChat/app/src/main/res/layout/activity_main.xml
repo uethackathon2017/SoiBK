@@ -31,7 +31,7 @@
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
             android:textColorHint="#aeafaf"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -51,8 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_float_button"
         app:backgroundTint="@color/colorPrimary"
-        />
+        app:srcCompat="@drawable/ic_float_button" />
 
 </android.support.design.widget.CoordinatorLayout>

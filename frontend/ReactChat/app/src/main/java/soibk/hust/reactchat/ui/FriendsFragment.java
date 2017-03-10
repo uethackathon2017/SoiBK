@@ -53,7 +53,7 @@ import soibk.hust.reactchat.data.FriendDB;
 import soibk.hust.reactchat.data.StaticConfig;
 import soibk.hust.reactchat.model.Friend;
 import soibk.hust.reactchat.model.ListFriend;
-import soibk.hust.reactchat.service.ServiceUtils;
+import soibk.hust.reactchat.service.ServiceFrendChatUtils;
 
 public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -86,8 +86,8 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         detectFriendOnline = new CountDownTimer(System.currentTimeMillis(), StaticConfig.TIME_TO_REFRESH) {
             @Override
             public void onTick(long l) {
-                ServiceUtils.updateFriendStatus(getContext(), dataListFriend);
-                ServiceUtils.updateUserStatus(getContext());
+                ServiceFrendChatUtils.updateFriendStatus(getContext(), dataListFriend);
+                ServiceFrendChatUtils.updateUserStatus(getContext());
             }
 
             @Override

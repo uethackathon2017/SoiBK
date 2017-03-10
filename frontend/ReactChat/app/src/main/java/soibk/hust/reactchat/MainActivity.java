@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import soibk.hust.reactchat.data.StaticConfig;
-import soibk.hust.reactchat.service.ServiceUtils;
+import soibk.hust.reactchat.service.ReactEmotionServiceUtils;
+import soibk.hust.reactchat.service.ServiceFrendChatUtils;
 import soibk.hust.reactchat.ui.FriendsFragment;
 import soibk.hust.reactchat.ui.GroupFragment;
 import soibk.hust.reactchat.ui.LoginActivity;
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         floatButton = (FloatingActionButton) findViewById(R.id.fab);
         initTab();
         initFirebase();
+        ReactEmotionServiceUtils.startReactEmotionService(this);
     }
 
     private void initFirebase() {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        ServiceUtils.stopServiceFriendChat(getApplicationContext(), false);
+        ServiceFrendChatUtils.stopServiceFriendChat(getApplicationContext(), false);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        ServiceUtils.startServiceFriendChat(getApplicationContext());
+        ServiceFrendChatUtils.startServiceFriendChat(getApplicationContext());
         super.onDestroy();
     }
 
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                ServiceUtils.stopServiceFriendChat(MainActivity.this.getApplicationContext(), false);
+                ServiceFrendChatUtils.stopServiceFriendChat(MainActivity.this.getApplicationContext(), false);
                 if (adapter.getItem(position) instanceof FriendsFragment) {
                     floatButton.setVisibility(View.VISIBLE);
                     floatButton.setOnClickListener(((FriendsFragment) adapter.getItem(position)).onClickFloatButton.getInstance(MainActivity.this));
