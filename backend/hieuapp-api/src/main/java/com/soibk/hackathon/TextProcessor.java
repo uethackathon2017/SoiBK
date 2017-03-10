@@ -1,10 +1,19 @@
 package com.soibk.hackathon;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import vn.hus.nlp.tokenizer.VietTokenizer;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import java.io.IOException;
+
+import static org.apache.http.HttpHeaders.USER_AGENT;
 
 
 /**
@@ -14,10 +23,13 @@ import javax.ws.rs.core.MediaType;
 @Path("upload")
 public class TextProcessor {
 
+    private final String LUA_URL = "http://10.10.215.60:18081/modelLua/data";
+
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{message}")
-    public String fragmentText(@PathParam("message")String message){
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED    )
+    public String fragmentText(@FormParam("message") String message){
+        String action = "";
 //        Runtime rt = Runtime.getRuntime();
 //        Process pr;
 //        try {
@@ -35,7 +47,27 @@ public class TextProcessor {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        return TokenizerInstance.getTokenizer(message);
+        VietTokenizer vietTokenizer = SoiBKContextDeploy.getTokenizer();
+        String result = vietTokenizer.tokenize(message)[0];
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost(LUA_URL);
+
+        // add header
+        post.setHeader("User-Agent", USER_AGENT);
+        post.setEntity(new StringEntity(result, "utf-8"));
+
+        HttpResponse response = null;
+        try {
+            response = client.execute(post);
+            action = IOUtils.toString(response.getEntity().getContent());
+
+            System.out.println("Action result : " + action);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return action;
     }
 
 }
