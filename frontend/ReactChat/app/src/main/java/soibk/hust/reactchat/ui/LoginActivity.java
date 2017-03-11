@@ -34,6 +34,7 @@ import soibk.hust.reactchat.R;
 import soibk.hust.reactchat.data.SharedPreferenceHelper;
 import soibk.hust.reactchat.data.StaticConfig;
 import soibk.hust.reactchat.model.User;
+import soibk.hust.reactchat.service.ReactEmotionServiceUtils;
 
 
 public class LoginActivity extends AppCompatActivity {

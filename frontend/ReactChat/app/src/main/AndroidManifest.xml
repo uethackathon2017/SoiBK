@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="soibk.hust.reactchat">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +48,12 @@
             android:name=".service.FriendChatService"
             android:exported="false"
             android:persistent="true" />
+
+        <service
+            android:name=".service.ReactEmotionService"
+            android:exported="false"
+            android:persistent="true" />
+
     </application>
 
 </manifest>

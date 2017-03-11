@@ -65,7 +65,7 @@ public class FriendChatService extends Service {
         updateOnline = new CountDownTimer(System.currentTimeMillis(), StaticConfig.TIME_TO_REFRESH) {
             @Override
             public void onTick(long l) {
-                ServiceUtils.updateUserStatus(getApplicationContext());
+                ServiceFrendChatUtils.updateUserStatus(getApplicationContext());
             }
 
             @Override

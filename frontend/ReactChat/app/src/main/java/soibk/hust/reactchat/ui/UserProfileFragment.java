@@ -48,7 +48,7 @@ import soibk.hust.reactchat.data.SharedPreferenceHelper;
 import soibk.hust.reactchat.data.StaticConfig;
 import soibk.hust.reactchat.model.Configuration;
 import soibk.hust.reactchat.model.User;
-import soibk.hust.reactchat.service.ServiceUtils;
+import soibk.hust.reactchat.service.ServiceFrendChatUtils;
 import soibk.hust.reactchat.util.ImageUtils;
 
 
@@ -310,7 +310,7 @@ public class UserProfileFragment extends Fragment {
                         FirebaseAuth.getInstance().signOut();
                         FriendDB.getInstance(getContext()).dropDB();
                         GroupDB.getInstance(getContext()).dropDB();
-                        ServiceUtils.stopServiceFriendChat(getContext().getApplicationContext(), true);
+                        ServiceFrendChatUtils.stopServiceFriendChat(getContext().getApplicationContext(), true);
                         getActivity().finish();
                     }
 

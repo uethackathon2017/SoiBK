@@ -1,6 +1,10 @@
 package soibk.hust.reactchat.data;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
+import soibk.hust.reactchat.R;
 
 public class StaticConfig {
     public static int REQUEST_CODE_REGISTER = 2000;
@@ -20,5 +24,39 @@ public class StaticConfig {
     public static long TIME_TO_REFRESH = 10 * 1000;
     public static long TIME_TO_OFFLINE = 2 * 60 * 1000;
 
+    public static String KEY_SHOW_EMOTION = "id";
+    public static int VALUE_STOP_EMOTION = -1;
+    public static int VALUE_DEFAULT_EMOTION = R.drawable.x;
+
+    public static Map<String, Integer> MAP_EMOTION = new HashMap<>();
+
+    static {
+        MAP_EMOTION.put("a", R.drawable.a);
+        MAP_EMOTION.put("ab", R.drawable.ab);
+        MAP_EMOTION.put("ac", R.drawable.ac);
+        MAP_EMOTION.put("ad", R.drawable.ad);
+        MAP_EMOTION.put("b", R.drawable.b);
+        MAP_EMOTION.put("c", R.drawable.c);
+        MAP_EMOTION.put("d", R.drawable.d);
+        MAP_EMOTION.put("e", R.drawable.e);
+        MAP_EMOTION.put("f", R.drawable.f);
+        MAP_EMOTION.put("g", R.drawable.g);
+        MAP_EMOTION.put("h", R.drawable.h);
+        MAP_EMOTION.put("i", R.drawable.i);
+        MAP_EMOTION.put("j", R.drawable.j);
+        MAP_EMOTION.put("k", R.drawable.k);
+        MAP_EMOTION.put("l", R.drawable.l);
+        MAP_EMOTION.put("m", R.drawable.m);
+        MAP_EMOTION.put("n", R.drawable.n);
+        MAP_EMOTION.put("o", R.drawable.o);
+        MAP_EMOTION.put("p", R.drawable.p);
+        MAP_EMOTION.put("t", R.drawable.t);
+        MAP_EMOTION.put("s", R.drawable.s);
+        MAP_EMOTION.put("v", R.drawable.v);
+        MAP_EMOTION.put("x", R.drawable.x);
+        MAP_EMOTION.put("y", R.drawable.y);
+        MAP_EMOTION.put("w", R.drawable.w);
+        MAP_EMOTION.put("z", R.drawable.z);
+    }
 
 }

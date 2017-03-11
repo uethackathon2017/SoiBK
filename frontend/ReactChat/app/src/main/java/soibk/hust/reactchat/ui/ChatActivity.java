@@ -9,29 +9,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import soibk.hust.reactchat.R;
 import soibk.hust.reactchat.data.SharedPreferenceHelper;
 import soibk.hust.reactchat.data.StaticConfig;
 import soibk.hust.reactchat.model.Consersation;
+import soibk.hust.reactchat.model.Emotion;
 import soibk.hust.reactchat.model.Message;
+import soibk.hust.reactchat.network.APIUtils;
+import soibk.hust.reactchat.service.ReactEmotionServiceUtils;
 
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
@@ -47,12 +59,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayoutManager linearLayoutManager;
     public static HashMap<String, Bitmap> bitmapAvataFriend;
     public Bitmap bitmapAvataUser;
+    private ImageView chatBackground;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        chatBackground = (ImageView) findViewById(R.id.chatBackground);
         Intent intentData = getIntent();
         idFriend = intentData.getCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID);
         roomId = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID);
@@ -115,11 +129,23 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             });
             recyclerChat.setAdapter(adapter);
         }
+
+//        changeBackground("https://i.imgur.com/5TWTJr3.jpg");
+    }
+
+    /**
+     * Thay doi hinh nen chat
+     *
+     * @param url
+     */
+    private void changeBackground(String url) {
+        Picasso picasso = new Picasso.Builder(this).build();
+        picasso.load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(chatBackground);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             Intent result = new Intent();
             result.putExtra("idFriend", idFriend.get(0));
             setResult(RESULT_OK, result);
@@ -148,8 +174,28 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 newMessage.idReceiver = roomId;
                 newMessage.timestamp = System.currentTimeMillis();
                 FirebaseDatabase.getInstance().getReference().child("message/" + roomId).push().setValue(newMessage);
+                callAPIToDetectEmotion(content);
             }
         }
+    }
+
+    private void callAPIToDetectEmotion(String message) {
+        APIUtils.getDetectEmotionAPI(message).enqueue(new Callback<Emotion>() {
+            @Override
+            public void onResponse(Call<Emotion> call, Response<Emotion> response) {
+                try {
+                    Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
+                    ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()));
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<Emotion> call, Throwable t) {
+                Toast.makeText(ChatActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 
@@ -190,17 +236,17 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((ItemMessageFriendHolder) holder).avata.setImageBitmap(currentAvata);
             } else {
                 final String id = consersation.getListMessageData().get(position).idSender;
-                if(bitmapAvataDB.get(id) == null){
+                if (bitmapAvataDB.get(id) == null) {
                     bitmapAvataDB.put(id, FirebaseDatabase.getInstance().getReference().child("user/" + id + "/avata"));
                     bitmapAvataDB.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue() != null) {
                                 String avataStr = (String) dataSnapshot.getValue();
-                                if(!avataStr.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+                                if (!avataStr.equals(StaticConfig.STR_DEFAULT_BASE64)) {
                                     byte[] decodedString = Base64.decode(avataStr, Base64.DEFAULT);
                                     ChatActivity.bitmapAvataFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-                                }else{
+                                } else {
                                     ChatActivity.bitmapAvataFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avata));
                                 }
                                 notifyDataSetChanged();
