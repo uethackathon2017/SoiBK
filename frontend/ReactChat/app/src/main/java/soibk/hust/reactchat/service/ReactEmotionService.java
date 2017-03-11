@@ -51,10 +51,10 @@ public class ReactEmotionService extends Service {
         if (id == StaticConfig.VALUE_STOP_EMOTION) {
             invisibleEmotion();
         } else {
-            switch (id) {
-                default:
-                    //Change chatHead
-                    Toast.makeText(this, "" + id, Toast.LENGTH_SHORT).show();
+            chatHead.setImageResource(id);
+            try {
+                windowManager.removeView(chatHead);
+            } catch (Exception ignored) {
             }
             try {
                 windowManager.addView(chatHead, params);
