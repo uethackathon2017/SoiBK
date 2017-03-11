@@ -6,28 +6,40 @@ require 'rnn'
 -- require init package = global variant table with path to RnnSemanticParser.model
 local Seq2Seq = torch.class("RnnSemanticParser.model.Seq2Seq") 
 
+
 -- ------------------------------------------------------------------------------------------
 -- constructor 
-function Seq2Seq:__init(lengDict, lengWordVector, lengLabel, dropoutRate)
+function Seq2Seq:__init(lengDict, lengWordVector, lengLabel, nNumLayerLSTM, dropoutRate)
 
     --
     -- init encode layer 
     -- batch x seqEncodeSize[word-encode id] => batch x SeqLengEncode x HiddenSize [double value]
     local lookupTableE  = nn.LookupTableMaskZero(lengDict, lengWordVector)
-    self.lstmEncoder    = nn.LSTM(lengWordVector, lengWordVector)
+    if (nNumLayerLSTM < 1) then 
+        nNumLayerLSTM = 1
+    end 
+    self.nNumLayerLSTM = nNumLayerLSTM
+    self.lstmEncodeIntemediateLayer    = nn.Sequential()
+    for idxLayer = 1, nNumLayerLSTM do 
+        self.lstmEncodeIntemediateLayer : add(nn.Sequencer(nn.FastLSTM(lengWordVector, lengWordVector):maskZero(1)))
+    end 
     self.encoder        = nn.Sequential()
                                 :add(lookupTableE)
-                                :add(nn.Sequencer(self.lstmEncoder:maskZero(1)))
+                                :add (self.lstmEncodeIntemediateLayer)
     
     --
     -- init decode layer 
     -- batch x seqEncodeSize[word-decode id] => batch x SeqLengDecode x HiddenSize [double value]
     local   lookupTableD  = nn.LookupTableMaskZero(lengDict, lengWordVector)
-    self.lstmDecoder      = nn.LSTM(lengWordVector, lengWordVector)            
+    self.lstmDecodeIntemediateLayer    = nn.Sequential()
+    for idxLayer = 1, nNumLayerLSTM do 
+        self.lstmDecodeIntemediateLayer : add(nn.Sequencer(nn.FastLSTM(lengWordVector, lengWordVector):maskZero(1)))
+    end
     local   logSofmax     = nn.LogSoftMax()            
     self.decoder          = nn.Sequential()
                                 :add(lookupTableD)
-                                :add(nn.Sequencer(self.lstmDecoder:maskZero(1)))
+                                :add (self.lstmDecodeIntemediateLayer)
+                                
     --
     -- init attention layer 
     -- {input1, input2} => output
@@ -79,16 +91,26 @@ end
 -- ------------------------------------------------------------------------------------------
 --[[ Forward coupling: Copy encoder cell and output to decoder LSTM ]]--
 function Seq2Seq:forwardConnect(inputSeqLen)
-	self.lstmDecoder.userPrevOutput =
-    	rnn.recursiveCopy(self.lstmDecoder.userPrevOutput, self.lstmEncoder.outputs[inputSeqLen])
-	self.lstmDecoder.userPrevCell =
-    	rnn.recursiveCopy(self.lstmDecoder.userPrevCell, self.lstmEncoder.cells[inputSeqLen])
+    for i = 1, self.nNumLayerLSTM do
+        local decodeLstmLayer = self.lstmDecodeIntemediateLayer:get(i):get(1)
+        local encodeLstmLayer = self.lstmEncodeIntemediateLayer:get(i):get(1)
+        
+        decodeLstmLayer.userPrevOutput =
+    	    rnn.recursiveCopy(decodeLstmLayer.userPrevOutput, encodeLstmLayer.outputs[inputSeqLen])
+	    decodeLstmLayer.userPrevCell =
+    	    rnn.recursiveCopy(decodeLstmLayer.userPrevCell, encodeLstmLayer.cells[inputSeqLen])
+    end         
 end
 
 -- ------------------------------------------------------------------------------------------
 --[[ Backward coupling: Copy decoder gradients to encoder LSTM ]]--
 function Seq2Seq:backwardConnect(inputSeqLen)
-  	self.lstmEncoder:setGradHiddenState(inputSeqLen, self.lstmDecoder:getGradHiddenState(0))
+    for i = 1, self.nNumLayerLSTM do
+        local decodeLstmLayer = self.lstmDecodeIntemediateLayer:get(i):get(1)
+        local encodeLstmLayer = self.lstmEncodeIntemediateLayer:get(i):get(1)
+        
+        encodeLstmLayer:setGradHiddenState(inputSeqLen, decodeLstmLayer:getGradHiddenState(0))
+    end
 end
 
 -- ------------------------------------------------------------------------------------------
@@ -142,6 +164,24 @@ function Seq2Seq:forget()
     self.decoder:forget()
     self.attention:forget()
     self.parseInputAttention:forget()
+    return self
+end
+
+-- ------------------------------------------------------------------------------------------
+function Seq2Seq:training()
+    self.encoder:training()
+    self.decoder:training()
+    self.attention:training()
+    self.parseInputAttention:training()
+    return self
+end
+
+-- ------------------------------------------------------------------------------------------
+function Seq2Seq:evaluate()
+    self.encoder:evaluate()
+    self.decoder:evaluate()
+    self.attention:evaluate()
+    self.parseInputAttention:evaluate()
     return self
 end
 
