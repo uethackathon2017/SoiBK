@@ -18,9 +18,6 @@ public class ReactEmotionServiceUtils extends ServiceUtils{
     public static void stopReactEmotionService(Context context) {
         if (isServiceRunning(context, ReactEmotionService.class)) {
             Intent intent = new Intent(context, ReactEmotionService.class);
-            if (connectionReactEmotionService != null) {
-                context.unbindService(connectionReactEmotionService);
-            }
             connectionReactEmotionService = new ServiceConnection() {
                 @Override
                 public void onServiceConnected(ComponentName className,

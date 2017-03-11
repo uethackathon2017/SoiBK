@@ -6,6 +6,7 @@ import android.graphics.PixelFormat;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class ReactEmotionService extends Service {
     private GifImageView chatHead = null;
     private WindowManager.LayoutParams params = null;
     private MediaPlayer mediaPlayer;
+    private CountDownTimer countDownTimer;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -48,10 +50,14 @@ public class ReactEmotionService extends Service {
      * @param id
      */
     public void showEmotion(int id) {
+        countDownTimer.cancel();
         if (id == StaticConfig.VALUE_STOP_EMOTION) {
             invisibleEmotion();
         } else {
             chatHead.setImageResource(id);
+            if (id != StaticConfig.VALUE_DEFAULT_EMOTION && id != StaticConfig.VALUE_PLAY_MUSIC_EMOTION) {
+                countDownTimer.start();
+            }
             try {
                 windowManager.removeView(chatHead);
             } catch (Exception ignored) {
@@ -89,6 +95,17 @@ public class ReactEmotionService extends Service {
     }
 
     private void prepareShowGif() {
+        countDownTimer = new CountDownTimer(5000, 5000) {
+            @Override
+            public void onTick(long l) {
+            }
+
+            @Override
+            public void onFinish() {
+                showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION);
+            }
+        };
+
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         params = new WindowManager.LayoutParams(
                 300,
@@ -119,6 +136,13 @@ public class ReactEmotionService extends Service {
                         initialTouchY = event.getRawY();
                         return false;
                     case MotionEvent.ACTION_UP:
+                        float endX = event.getRawX();
+                        float endY = event.getRawY();
+                        if (isAClick(initialTouchX, endX, initialTouchY, endY)) {
+                            //                stopStreamMusic();
+                            showEmotion(StaticConfig.MAP_EMOTION.get("ac"));
+                            startStreamMusic("http://320.s1.mp3.zdn.vn/65f714fdfbb912e74ba8/3957087340509527650?key=qCzD2liBoUMPMHJvU0Wv-A&expires=1489303215");
+                        }
                         return false;
                     case MotionEvent.ACTION_MOVE:
                         params.x = initialX
@@ -132,21 +156,39 @@ public class ReactEmotionService extends Service {
             }
         });
 
-        chatHead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                stopStreamMusic();
-            }
-        });
+//        chatHead.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//
+//                return true;
+//            }
+//        });
     }
 
+    private boolean isAClick(float startX, float endX, float startY, float endY) {
+        float differenceX = Math.abs(startX - endX);
+        float differenceY = Math.abs(startY - endY);
+        if (differenceX > StaticConfig.CLICK_ACTION_THRESHHOLD || differenceY > StaticConfig.CLICK_ACTION_THRESHHOLD) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            windowManager.removeView(chatHead);
+        } catch (Exception ignored) {
+        }
+    }
 
     /**
      * Tắt nhạc khi nhấn vào emotion chơi nhacj
      */
-    public void stopStreamMusic(){
-        if(mediaPlayer != null){
-            if(mediaPlayer.isPlaying()) {
+    public void stopStreamMusic() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
             }
             mediaPlayer.release();
@@ -156,13 +198,14 @@ public class ReactEmotionService extends Service {
 
     /**
      * Chơi nhạc khi hiển thị emotion chơi nhạc
+     *
      * @param url
      */
     private void startStreamMusic(final String url) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
-                if(mediaPlayer == null) {
+                if (mediaPlayer == null) {
                     mediaPlayer = new MediaPlayer();
                 }
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -170,6 +213,7 @@ public class ReactEmotionService extends Service {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         stopStreamMusic();
+                        showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION);
                     }
                 });
                 try {
