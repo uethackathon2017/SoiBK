@@ -38,7 +38,9 @@ public class ReactEmotionServiceUtils extends ServiceUtils{
     }
 
     public static void startReactEmotionService(Context context) {
-        changeEmotion(context, StaticConfig.VALUE_DEFAULT_EMOTION);
+        if (!isServiceRunning(context, ReactEmotionService.class)) {
+            changeEmotion(context, StaticConfig.VALUE_DEFAULT_EMOTION);
+        }
     }
 
     public static void changeEmotion(Context context, final int id){

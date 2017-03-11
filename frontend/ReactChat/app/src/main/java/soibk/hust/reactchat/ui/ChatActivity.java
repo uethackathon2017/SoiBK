@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,12 +50,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayoutManager linearLayoutManager;
     public static HashMap<String, Bitmap> bitmapAvataFriend;
     public Bitmap bitmapAvataUser;
+    private ImageView chatBackground;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        chatBackground = (ImageView) findViewById(R.id.chatBackground);
         Intent intentData = getIntent();
         idFriend = intentData.getCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID);
         roomId = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID);
@@ -115,6 +120,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             });
             recyclerChat.setAdapter(adapter);
         }
+
+//        changeBackground("https://i.imgur.com/5TWTJr3.jpg");
+    }
+
+    /**
+     * Thay doi hinh nen chat
+     * @param url
+     */
+    private void changeBackground(String url){
+        Picasso picasso = new Picasso.Builder(this).build();
+        picasso.load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(chatBackground);
     }
 
     @Override

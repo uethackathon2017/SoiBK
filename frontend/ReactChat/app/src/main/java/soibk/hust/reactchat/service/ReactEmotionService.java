@@ -3,6 +3,8 @@ package soibk.hust.reactchat.service;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -12,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 import pl.droidsonroids.gif.GifImageView;
 import soibk.hust.reactchat.R;
@@ -24,6 +28,7 @@ public class ReactEmotionService extends Service {
     private WindowManager windowManager = null;
     private GifImageView chatHead = null;
     private WindowManager.LayoutParams params = null;
+    private MediaPlayer mediaPlayer;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -53,6 +58,7 @@ public class ReactEmotionService extends Service {
             }
             try {
                 windowManager.addView(chatHead, params);
+//                startStreamMusic("http://zmp3-mp3-s1.zmp3-fpthn-2.za.zdn.vn/d41230d1df9536cb6f84/1181817601640857205?key=S3lRCC3Gw1ka77O0GTChyQ&expires=1489209964");
             } catch (Exception ignored) {
             }
         }
@@ -95,7 +101,7 @@ public class ReactEmotionService extends Service {
         params.x = 0;
         params.y = 0;
         chatHead = new GifImageView(this);
-        chatHead.setImageResource(R.drawable.dog);
+        chatHead.setImageResource(R.drawable.x);
 
         chatHead.setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
@@ -125,5 +131,55 @@ public class ReactEmotionService extends Service {
                 return false;
             }
         });
+
+        chatHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                stopStreamMusic();
+            }
+        });
+    }
+
+
+    /**
+     * Tắt nhạc khi nhấn vào emotion chơi nhacj
+     */
+    public void stopStreamMusic(){
+        if(mediaPlayer != null){
+            if(mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+        }
+        mediaPlayer = null;
+    }
+
+    /**
+     * Chơi nhạc khi hiển thị emotion chơi nhạc
+     * @param url
+     */
+    private void startStreamMusic(final String url) {
+        new Thread(){
+            @Override
+            public void run() {
+                if(mediaPlayer == null) {
+                    mediaPlayer = new MediaPlayer();
+                }
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        stopStreamMusic();
+                    }
+                });
+                try {
+                    mediaPlayer.setDataSource(url);
+                    mediaPlayer.prepare(); // might take long! (for buffering, etc)
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }
