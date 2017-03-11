@@ -77,3 +77,27 @@ function isSameTable(x, y)
 
     return bRet 
 end
+
+-- read file to table 
+function linesFromFile( sPathFile )
+    local pairRets = {}
+    for line in io.lines(sPathFile) do
+        table.insert(pairRets, line)
+    end
+    return pairRets
+end
+
+
+-- read file to table 
+function cloneTable( table )
+    local newTable = {}
+    for k, v in pairs(table) do 
+        newTable[k] = v
+    end 
+    return newTable
+end
+
+-- validate backet 
+function cloneTable(sStringValidate)
+    
+end

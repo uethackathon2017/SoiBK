@@ -27,6 +27,7 @@ curl -v localhost:8080/todo
 
 
 local restserver = require("restserver")
+require "Main"
 
 -- Process Deeplearning
 -- dofile('ner.lua')
@@ -37,7 +38,7 @@ local next_id = 0
 
 -- resource service
 local server = restserver:new():port(18081)
-server:add_resource("nerLua", {
+server:add_resource("modelLua", {
 
     {
         method = "GET",
@@ -54,11 +55,11 @@ server:add_resource("nerLua", {
       consumes = "application/json",
       produces = "application/json",
       input_schema = {
-         task = { type = "string" },
+         data = { type = "string" },
       },
       handler = function(task_submission)
         print ("dfdf")
-         print("Received task: " .. task_submission.task)
+         print("Received task: " .. task_submission.data)
          if (next_id == nil) then next_id = 0 end 
          next_id = next_id + 1
          task_submission.id = next_id
@@ -84,8 +85,10 @@ server:add_resource("nerLua", {
             -- xu ly ner
             -- local result = nerProcessFeatures(task_submission)
             print (task_submission)
-            result =task_submission
-
+            
+            result =  evalXX(task_submission)-- "luaProcessed(" .. task_submission .. ")"
+            print (result)
+            
             todo_list[1] = "Server waiting request ..."
             return restserver.response():status(200):entity(result)
         end,
