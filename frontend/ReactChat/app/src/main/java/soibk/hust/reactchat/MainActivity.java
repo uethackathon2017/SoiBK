@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         floatButton = (FloatingActionButton) findViewById(R.id.fab);
         initTab();
         initFirebase();
-        ReactEmotionServiceUtils.startReactEmotionService(this);
+        ReactEmotionServiceUtils.startReactEmotionService(getApplicationContext());
     }
 
     private void initFirebase() {

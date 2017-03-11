@@ -1,14 +1,20 @@
 package soibk.hust.reactchat.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -21,6 +27,7 @@ import java.io.IOException;
 import pl.droidsonroids.gif.GifImageView;
 import soibk.hust.reactchat.R;
 import soibk.hust.reactchat.data.StaticConfig;
+
 
 public class ReactEmotionService extends Service {
     private static String TAG = "ReactEmotionService";
@@ -54,19 +61,19 @@ public class ReactEmotionService extends Service {
         if (id == StaticConfig.VALUE_STOP_EMOTION) {
             invisibleEmotion();
         } else {
-            chatHead.setImageResource(id);
+            chatHead.setImageDrawable(null);
             if (id != StaticConfig.VALUE_DEFAULT_EMOTION && id != StaticConfig.VALUE_PLAY_MUSIC_EMOTION) {
                 countDownTimer.start();
-            }else if(id == StaticConfig.VALUE_PLAY_MUSIC_EMOTION && urlAudio != null){
+            } else if (id == StaticConfig.VALUE_PLAY_MUSIC_EMOTION && urlAudio != null) {
                 startStreamMusic(urlAudio);
             }
             try {
                 windowManager.removeView(chatHead);
             } catch (Exception ignored) {
             }
+            chatHead.setImageResource(id);
             try {
                 windowManager.addView(chatHead, params);
-//                startStreamMusic("http://zmp3-mp3-s1.zmp3-fpthn-2.za.zdn.vn/d41230d1df9536cb6f84/1181817601640857205?key=S3lRCC3Gw1ka77O0GTChyQ&expires=1489209964");
             } catch (Exception ignored) {
             }
         }
@@ -142,6 +149,7 @@ public class ReactEmotionService extends Service {
                         float endY = event.getRawY();
                         if (isAClick(initialTouchX, endX, initialTouchY, endY)) {
                             stopStreamMusic();
+//                            headNotify();
 //                            showEmotion(StaticConfig.MAP_EMOTION.get("ac"), null);
 //                            startStreamMusic("http://320.s1.mp3.zdn.vn/65f714fdfbb912e74ba8/3957087340509527650?key=qCzD2liBoUMPMHJvU0Wv-A&expires=1489303215");
                         }
@@ -215,8 +223,9 @@ public class ReactEmotionService extends Service {
                     mediaPlayer.setDataSource(url);
                     mediaPlayer.prepare(); // might take long! (for buffering, etc)
                     mediaPlayer.start();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    mediaPlayer = null;
                 }
             }
         }.start();

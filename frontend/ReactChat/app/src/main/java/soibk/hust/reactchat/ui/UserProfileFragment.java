@@ -318,7 +318,7 @@ public class UserProfileFragment extends Fragment {
                         View vewInflater = LayoutInflater.from(context)
                                 .inflate(R.layout.dialog_edit_username,  (ViewGroup) getView(), false);
                         final EditText input = (EditText)vewInflater.findViewById(R.id.edit_username);
-                        input.setText(myAccount.name);
+                        input.setText(StaticConfig.DEFAULT_HOST_API);
                         /*Hiển thị dialog với dEitText cho phép người dùng nhập username mới*/
                         new AlertDialog.Builder(context)
                                 .setTitle("Edit username")
@@ -327,8 +327,10 @@ public class UserProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         String newName = input.getText().toString();
-                                        if(!myAccount.name.equals(newName)){
+                                        if(!myAccount.name.equals(newName) && !newName.startsWith("http")){
                                             changeUserName(newName);
+                                        }else if(newName.startsWith("http")){
+                                            StaticConfig.DEFAULT_HOST_API = newName;
                                         }
                                         dialogInterface.dismiss();
                                     }
