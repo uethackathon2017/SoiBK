@@ -1,0 +1,12 @@
+(	218
+)	218
+open	12
+not	24
+s	20
+state:i	85
+close	12
+or	3
+action:i	24
+ng.dung	65
+and	26
+cam_xuc	85

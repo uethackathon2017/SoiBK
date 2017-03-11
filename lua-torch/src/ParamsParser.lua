@@ -5,28 +5,26 @@ function ParamsParser()
         cmd = torch.CmdLine()
       
         cmd:text()
-        cmd:text('Chuong trinh phan loai tu - NER - brnn')
+        cmd:text('Semantic parsing')
         cmd:text('Options:')
         cmd:text()
 
         -- training
         cmd:text('Training options')
-        cmd:option('--lr', 0.1, 'learning rate - Toc do hoc cua mang ')
+        cmd:option('--lr', 0.001, 'learning rate - Toc do hoc cua mang ')
         cmd:option('--momentum', 0.95, 'momentum - Giam do dao dong khi hoi tu')
-        
-        cmd:option('--trainRate', 0.9, 'train rate - Ti le tap hoc tren toan bo du lieu ')
-        cmd:option('--isTrainBatchSentenceSameSize', true, 'Ghep cac cau co cung kich thuoc trong 1 batchInputs')
-        cmd:option('--isUseOptimizeGradient', true, 'Su dung Optimize Gradient')
-        cmd:option('--isUseFeatureWord', false, 'Su dung dac trung ngon ngu')
-        cmd:option('--batchSentenceSize', 30, 'so cau trong 1 batchInputs')
+        cmd:option('--decayRate', 0.95, 'decayrate - ')
+        cmd:option('--batch_size', 30, 'so cau trong 1 batchInputs')
+        cmd:option('--lengWordVector', 300, 'word vector size')
+        cmd:option('--lengLabel', 150, 'count label predict')
+        cmd:option('--lengDict', 500, 'size Dictionary')
+        cmd:option('--maxEpoch', 200, 'so lan lap lai toan bo du lieu')
+        cmd:option('--nNumLayerLstmIntermediate', 1, 'count deep lstm layer ')
+        cmd:option('--dropoutRate', 0.5, 'rate to drop out')
+        cmd:option('--isUsedCuda', true, 'use Cuda gpu')
+
         cmd:option('--countLoopOneBatchSize', 5, 'so lan lap lai 1 batchInputs cau')
-        cmd:option('--countLoopAllData', 100, 'so lan lap lai toan bo du lieu')
-        cmd:option('--iDataset', 5, 'Cai dat train bo du lieu i')
         cmd:option('--nameNet', "brnnLstm", 'Cai dat ten mang Neron: rnn/rnnLstm/brnnLstm')
-        cmd:option('--isUseMaskZeroPadding', false, 'Su dung padding word cho cac cau khong cung do dai')
-        cmd:option('--isReparseBalanceData', true, 'Can bang lai ti le train:test ~ 9:1')
-        cmd:option('--iModelTest', 1, 'Test cai tien model')
-        cmd:option('--cuda', false, 'use Cuda gpu')
         
         -- loging
         cmd:text()
@@ -51,7 +49,8 @@ function ParamsParser()
                 opt.rundir = cmd:string('../logs', {}, {dir=true})
                 paths.mkdir(opt.rundir)
                 
-                opt.nameLog = string.format("%s-%d.log",opt.nameLog, opt.iDataset)
+                opt.nameLog = string.format("%s-%d.log",opt.nameLog, 1 --[[os.time()]]-- 
+                )
                 cmd:log(opt.rundir .. '/'.. opt.nameLog, opt)
 
                 

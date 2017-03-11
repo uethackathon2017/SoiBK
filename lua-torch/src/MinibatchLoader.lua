@@ -30,9 +30,24 @@ function MinibatchLoader.create(opt, name)
   self.enc_len_batch_list = {}
   self.dec_batch_list = {}
   local p = 0
+  local newData = {}
+  local mtIdx = torch.randperm(#data)
+  for i = 1, #data  do
+    newData[i] = data[mtIdx[i]]
+  end
+  data = newData
+  newData = nil 
+
   while p + opt.batch_size <= #data do
     -- build enc matrix --------------------------------
-    local max_len = #data[p + opt.batch_size][1]
+    local max_len = -1
+    for i = 1, opt.batch_size do
+      local w_list = data[p + i][1]
+      if #w_list > max_len then
+        max_len = #w_list
+      end
+    end
+
     local m_text = torch.zeros(opt.batch_size, max_len + 2)
     local enc_len_list = {}
     
@@ -81,6 +96,7 @@ function MinibatchLoader.create(opt, name)
 
   -- reset batch index
   self.num_batch = #self.enc_batch_list
+  self.num_sample= #data
 
   assert(#self.enc_batch_list == #self.dec_batch_list)
 
