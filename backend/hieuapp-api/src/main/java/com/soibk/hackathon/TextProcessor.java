@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Random;
 
@@ -37,8 +36,8 @@ public class TextProcessor {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED    )
     public Media fragmentText(@FormParam("message") String message){
-        System.out.println(message);
-        String processedResult = "";
+        System.out.println("receiver message: " + message);
+
 //        Runtime rt = Runtime.getRuntime();
 //        Process pr;
 //        try {
@@ -57,32 +56,48 @@ public class TextProcessor {
 //            e.printStackTrace();
 //        }
 
-        VietTokenizer vietTokenizer = SoiBKContextDeploy.getTokenizer();
-        String result = vietTokenizer.tokenize(message)[0];
+        /**
+         * Natural Language Processing
+         */
+        String processedResult = "";
+//
+//        VietTokenizer vietTokenizer = SoiBKContextDeploy.getTokenizer();
+//        String result = vietTokenizer.tokenize(message)[0];
+//
+//        HttpClient client = HttpClientBuilder.create().build();
+//        HttpPost post = new HttpPost(LUA_URL);
+//
+//        // add header
+//        post.setHeader("User-Agent", USER_AGENT);
+//        post.setEntity(new StringEntity(result, "utf-8"));
+//
+//        HttpResponse response = null;
+//        try {
+//            response = client.execute(post);
+//            processedResult = IOUtils.toString(response.getEntity().getContent());
+//
+//            System.out.println("Action result : " + processedResult);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(LUA_URL);
-
-        // add header
-        post.setHeader("User-Agent", USER_AGENT);
-        post.setEntity(new StringEntity(result, "utf-8"));
-
-        HttpResponse response = null;
-        try {
-            response = client.execute(post);
-            processedResult = IOUtils.toString(response.getEntity().getContent());
-
-            System.out.println("Action result : " + processedResult);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        /**
+         * Response result text parse for mobile
+         */
         Media media;
 
         try{
+            if(ConfigApp.DEBUG){
+                JSONObject stateResult = new JSONObject();
+                stateResult.put("state", DEFAULT_VALUE);
+                stateResult.put("feel", message);
+                processedResult = stateResult.toString();
+            }
+
             JSONObject jsonObject = new JSONObject(processedResult);
             String state = jsonObject.getString("state");
             String feel = jsonObject.getString("feel");
+
             if(!feel.equals(DEFAULT_VALUE)){
                 media = getResponseMedia(feel);
                 return media;
@@ -103,51 +118,81 @@ public class TextProcessor {
         }
     }
 
+    /**
+     * Get medial for state
+     * @param state
+     * @return
+     */
     private Media getResponseMedia(String state){
 
         String emotions = MediaStore.feelMapIcon.get(state);
         if(emotions == null){
-            Media media = new Media();
-            media.setLabel(state);
-            media.setIcon(MediaStore.feelMapIcon.get(DEFAULT_VALUE));
-
-            return media;
+            return getDefaultMedia(state);
         }
 
         String[] args = emotions.split(":");
 
-        Random random = new Random();
-        int range = args.length +1;
-        int index = random.nextInt(range);
+        int index = getRandomItem(args.length - 1);
 
         String emotion = args[index];
-        String music = "";
-        String wall = "";
-
-
-        String mediaType = MediaStore.mediaType.get(state);
-        if(mediaType != null){
-            if(mediaType.equals("sad")){
-                music = MediaStore.sadMusic[index];
-                wall = MediaStore.sadWall[index];
-            }else {
-                music = MediaStore.relaxMusic[index];
-                wall = MediaStore.happyWall[index];
-            }
-        }
 
         Media media = new Media();
         media.setLabel(state);
         media.setIcon(emotion);
-        try {
-            media.setMusic(URLEncoder.encode(music,"utf-8"));
-            media.setWallpaper(URLEncoder.encode(wall, "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+
+        String mediaType = MediaStore.mediaType.get(state);
+        if(mediaType != null){
+            String musicURL = "";
+            String wallURL = "";
+
+            if(mediaType.equals("sad")){
+                int mIndex = getRandomItem(MediaStore.sadMusic.length -1);
+                musicURL = MediaStore.sadMusic[mIndex];
+                int wIndex = getRandomItem(MediaStore.sadWall.length - 1);
+                wallURL = MediaStore.sadWall[wIndex];
+
+            }else {
+                int mIndex = getRandomItem(MediaStore.relaxMusic.length -1);
+                musicURL = MediaStore.relaxMusic[mIndex];
+                int wIndex = getRandomItem(MediaStore.happyWall.length - 1);
+                wallURL = MediaStore.happyWall[wIndex];
+            }
+
+            media.setMusic(musicURL);
+            media.setWallpaper(wallURL);
+
         }
 
-        System.out.println(media.toString());
+        System.out.println("music url = " +media.getMusic());
+        System.out.println("wall url = " +media.getWallpaper());
+
         return media;
     }
 
+    private Media getDefaultMedia(String state) {
+        Media media = new Media();
+        media.setLabel(state);
+        media.setIcon(MediaStore.feelMapIcon.get(DEFAULT_VALUE));
+
+        return media;
+    }
+
+    private int getRandomItem(int max){
+        Random random = new Random();
+        return random.nextInt(max + 1);
+    }
+
+    private String encodeURL(String url) throws UnsupportedEncodingException {
+        if(url.equals("") || url == null){
+            return "";
+        }
+
+        int lastSec = url.lastIndexOf("/");
+        String firstPart = url.substring(0, lastSec);
+        String lastPart = url.substring(lastSec + 1);
+
+        String lastPartEncoded = URLEncoder.encode(lastPart, "utf-8");
+
+        return firstPart + "/" + lastPartEncoded;
+    }
 }
