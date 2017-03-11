@@ -1,5 +1,6 @@
 require 'nn'
 require 'rnn'
+-- require 'SymbolsManager'
 
 -- ------------------------------------------------------------------------------------------
 -- require init package = global variant table with path to RnnSemanticParser.model
@@ -7,33 +8,26 @@ local Seq2Seq = torch.class("RnnSemanticParser.model.Seq2Seq")
 
 -- ------------------------------------------------------------------------------------------
 -- constructor 
-function Seq2Seq:__init(lengDict, lengWordVector, lengLabel, dropoutRate, isUseCuda)
+function Seq2Seq:__init(lengDict, lengWordVector, lengLabel, dropoutRate)
 
     --
     -- init encode layer 
     -- batch x seqEncodeSize[word-encode id] => batch x SeqLengEncode x HiddenSize [double value]
     local lookupTableE  = nn.LookupTableMaskZero(lengDict, lengWordVector)
-    self.lstmEncoder    = nn.FastLSTM(lengWordVector, lengWordVector)
-    local switchLayer   = nn.ConcatTable()              -- 1 input => n output
-                            :add (nn.Identity())        -- for attention layer
-                            :add (nn.Select(1,-1))      -- for decode layser
+    self.lstmEncoder    = nn.LSTM(lengWordVector, lengWordVector)
     self.encoder        = nn.Sequential()
                                 :add(lookupTableE)
                                 :add(nn.Sequencer(self.lstmEncoder:maskZero(1)))
-                                -- :add(switchLayer)
     
     --
     -- init decode layer 
     -- batch x seqEncodeSize[word-decode id] => batch x SeqLengDecode x HiddenSize [double value]
     local   lookupTableD  = nn.LookupTableMaskZero(lengDict, lengWordVector)
-    self.lstmDecoder      = nn.FastLSTM(lengWordVector, lengWordVector)            
-    local   linear        = nn.Linear(lengWordVector, lengLabel)
+    self.lstmDecoder      = nn.LSTM(lengWordVector, lengWordVector)            
     local   logSofmax     = nn.LogSoftMax()            
     self.decoder          = nn.Sequential()
                                 :add(lookupTableD)
                                 :add(nn.Sequencer(self.lstmDecoder:maskZero(1)))
-                                -- :add(nn.Sequencer(nn.MaskZero(linear,1)))
-                                -- :add(nn.Sequencer(nn.MaskZero(logSofmax,1)))
     --
     -- init attention layer 
     -- {input1, input2} => output
@@ -80,22 +74,6 @@ function Seq2Seq:__init(lengDict, lengWordVector, lengLabel, dropoutRate, isUseC
                                     :add(nn.Transpose({1,2}))
                                     :add(nn.Transpose({1,2}))
 
-    self.isUseCuda = isUseCuda
-    if (isUseCuda) then 
-        self.encoder = self.encoder:cuda()
-        self.decoder = self.decoder:cuda()
-        self.attention = self.attention:cuda()
-        self.attention = self.attention:cuda()
-        self.criterion = self.criterion:cuda()
-        self.parseInputAttention = self.parseInputAttention:cuda()
-    end 
-    -- test model 
-    -- x  = torch.Tensor({{0,2,5}, {3,4,5}}):t()
-    -- print (x)
-
-    -- y  = self.encoder:forward(x)
-    -- print (lstmDecoder:get(1):get(1):get(1))
-	-- y  = decoder:forward(x)
 end
 
 -- ------------------------------------------------------------------------------------------
@@ -156,6 +134,118 @@ function Seq2Seq:getParameters()
             :add(self.parseInputAttention)
             :add(self.attention)
             :getParameters()
+end
+
+-- ------------------------------------------------------------------------------------------
+function Seq2Seq:forget()
+    self.encoder:forget()
+    self.decoder:forget()
+    self.attention:forget()
+    self.parseInputAttention:forget()
+    return self
+end
+
+-- ------------------------------------------------------------------------------------------
+function Seq2Seq:cuda()
+    self.isUseCuda = true
+    self.encoder:cuda()
+    self.decoder:cuda()
+    self.attention:cuda()
+    self.criterion:cuda()
+    self.parseInputAttention:cuda()
+    return self
+end
+
+-- ------------------------------------------------------------------------------------------
+function Seq2Seq:unCuda()
+    self.isUseCuda = false
+    self.outputEncode  = nil
+    self.outputDecode  = nil
+    self.inputAttention  = nil
+    self.outputAttention  = nil
+
+    self.encoder:float()
+    self.decoder:float()
+    self.attention:float()
+    self.criterion:float()
+    self.parseInputAttention:float()
+    return self
+end
+
+-- ------------------------------------------------------------------------------------------
+-- eval accuracy
+function Seq2Seq:eval(enc_w_list)
+
+    -- global propertise 
+    MAX_OUTPUT_SIZE = 100
+
+    -- reversed order
+    local enc_w_list_withSE = shallowcopy(enc_w_list)
+    local goToken = word_manager:get_symbol_idx('<S>')
+    local eosToken = word_manager:get_symbol_idx('<E>')
+    table.insert(enc_w_list_withSE,1,word_manager:get_symbol_idx('<E>'))
+    table.insert(enc_w_list_withSE,word_manager:get_symbol_idx('<S>'))
+    
+    -- convert to matrix[seq x batchsize = 1]
+    local inputEncode = torch.Tensor(#enc_w_list_withSE, 1)
+    for i = 1, #enc_w_list_withSE do 
+        inputEncode[i] = enc_w_list_withSE[#enc_w_list_withSE - i + 1] 
+    end
+    if (self.isUseCuda) then 
+        inputEncode:cuda()
+    end 
+    -- print ("------------------------------------------------------")
+    -- print ("input: " .. word_manager_convert_to_string(inputEncode))
+
+    -- forward encoder
+    self.outputEncode       = self.encoder:forward(inputEncode)
+    self:forwardConnect(inputEncode:size(1))
+    
+    local predictions = {}
+    local probabilities = {}
+
+    -- Forward <go> and all of it's output recursively back to the decoder
+    local inputDecodeTbl = {goToken}
+    for i = 1, MAX_OUTPUT_SIZE do
+        -- Recreat input for decoder
+        local inputDecode = nn.View(#inputDecodeTbl, 1)(torch.Tensor(inputDecodeTbl))
+        if (self.isUseCuda) then 
+            inputDecode:cuda()
+        end 
+
+        -- forward decoder + attention
+        self.outputDecode       = self.decoder:forward(inputDecode)
+        self.inputAttention     = self.parseInputAttention:forward({
+                                    self.outputEncode,
+                                    self.outputDecode
+                                })
+        self.outputAttention    = self.attention:forward(self.inputAttention)
+        
+        -- prediction contains the probabilities for each word IDs.
+        -- The index of the probability is the word ID.
+        local prob, wordIds = self.outputAttention[#inputDecodeTbl]:topk(5, 2, true, true)
+       
+        -- First one is the most likely.
+        next_output = wordIds[1][1]
+        table.insert(inputDecodeTbl, next_output)
+               
+        -- Terminate on EOS token
+        if next_output == eosToken then
+            break
+        end
+
+        -- print (convert_to_string(wordIds:t()))
+        table.insert(predictions, wordIds)
+        table.insert(probabilities, prob)
+    end 
+
+    -- print ("output: "..convert_to_string(inputDecodeTbl))
+    
+    self.decoder:forget()
+    self.encoder:forget()
+
+    -- return predictions, probabilities
+    return inputDecodeTbl    
 end
 
 -- ------------------------------------------------------------------------------------------
