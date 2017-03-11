@@ -19,4 +19,4 @@ include("ParamsParser.lua")
 include("SymbolsManager.lua")
 include("utils.lua")
 include("WordCombiner.lua")
-
+include("OtomatParser.lua")

@@ -13,9 +13,12 @@ khát:bình_thường
 khát_nước:bình_thường
 mệt_mỏi:khỏe_mạnh
 khỏe_mạnh:mệt_mỏi
+khỏe:mệt_mỏi
 bình_thường:mệt_mỏi
 mệt:khỏe_mạnh
 bị_đá:đa_tình
+đa_tình:bị_đá
+đào_hoa:bị_đá
 thất_tình:đa_tình
 thiếu_thốn_tình_cảm:đa_tình
 buồn_ngủ:bình_thường
@@ -24,5 +27,6 @@ mỏi_mắt:bình_thường
 điểm_thấp:điểm_cao
 điểm_cao:điểm_thấp
 thi_tạch:qua_môn
+tạch:qua_môn
 thi_rớt:qua_môn
 qua_môn:thi_tạch

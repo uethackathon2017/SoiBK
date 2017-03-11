@@ -316,6 +316,107 @@ function WordCombiner:getStateInfer(infoCombined, stateInfered)
     return lstStateRet
 end
 
+-- ------------------------------------------------------------------------------------------
+-- get state word generated from model 
+-- ------------------------------------------------------------------------------------------
+function WordCombiner:getStateInfer2(infoCombined, stateInferedTbl, form_manager)
+    local bGotState = false
+    local bGotFeel = false
+    local lstStateRet = {}
+    lstStateRet["state"] = "bình_thường"
+    lstStateRet["feel"] = "không_cảm_xúc"
+
+    -- lst State
+    local lstStateEncode, lstFeelEncode = {}, {} 
+    for idx, info in pairs(infoCombined) do 
+        if (torch.type(info) == "table") then 
+            if info[1] == "state" then 
+                table.insert(lstStateEncode, info)
+            elseif info[1] == "feel" then 
+                table.insert(lstFeelEncode, info)
+            end
+        end 
+    end 
+
+    tblListState = stateInferedTbl
+    mapWordId = form_manager.symbol2idx
+    lstState = {}
+    
+    local bCheck = parserState1(0)
+    
+    local stateInfo = nil
+    local feelInfo = nil
+    print (lstFeelEncode, lstStateEncode)
+    -- combine state infered 
+    if (bCheck == true) then 
+        local states = lstState["state"]    
+        local feels = lstState["feel"]
+
+        -- xu ly state trong ds cac state
+        if(states  ~= nil and #states == #lstStateEncode) then 
+            for k, v in pairs(states) do 
+                -- lay thong tin state hien tai 
+                local curState = nil
+                if (v == -1) then 
+                    -- not state or not feel 
+                    curState = self:getInferNot(lstStateEncode[k])
+                elseif (v == 1) then 
+                    curState = lstStateEncode[k]
+                end 
+                
+                -- toi uu chuoi state -> chon state co id thap hon
+                if (stateInfo == nil) then 
+                    stateInfo = curState
+                else
+                    if (stateInfo[2] > curState[2]) then 
+                        stateInfo = curState
+                    end 
+                end
+            end
+        else 
+            print("[W] count state not equal!")
+        end    
+
+        -- xu ly feel trong ds cac feel 
+        if(feels ~= nil and #feels == #lstFeelEncode) then 
+            for k, v in pairs(feels) do 
+                -- lay thong tin feel hien tai 
+                local curFeel = nil
+                if (v == -1) then 
+                    -- not state or not feel 
+                    curFeel = self:getInferNot(lstFeelEncode[k])
+                elseif (v == 1) then 
+                    curFeel = lstFeelEncode[k]
+                end 
+                
+                -- toi uu chuoi state -> chon feel co id thap hon
+                if (feelInfo == nil) then 
+                    feelInfo = curFeel
+                elseif (feelInfo[2] > curFeel[2]) then 
+                    feelInfo = curFeel
+                end 
+            end
+        end
+
+    else 
+        print("[W] bCheck validate infer state = FAIL")
+    end
+    
+    -- get word - save and return 
+    print (feelInfo)
+    print (stateInfo)
+    if (feelInfo ~= nil) then 
+        lstStateRet["feel"] = self:findInDictRecombine(feelInfo)
+    end 
+    if (stateInfo ~= nil) then 
+        lstStateRet["state"] = self:findInDictRecombine(stateInfo)
+    end 
+    
+    print ("sdfsdfsdf")
+    print (lstStateRet)
+    print ("sdfsdfsdf")
+    return lstStateRet
+end
 
 -- ------------------------------------------------------------------------------------------
 -- test this class 

@@ -1,5 +1,7 @@
 thoải_mái:chán_nản
+phê:chán_nản
 nhẹ_nhàng:chán_nản
+khó_chịu:thoải_mái
 vui:buồn_chán
 vui_vẻ:buồn_chán
 vui_sướng:buồn_chán
@@ -27,6 +29,8 @@ bất_cần:vui_vẻ
 đau_khổ:vui_sướng
 đau_đớn:vui_sướng
 tuyệt_vọng:tự_tin
+cô_đơn:vui_vẻ
+lạc_lõng:vui_vẻ
 đau_buồn:vui_vẻ
 phẫn_nộ:không_cảm_xúc
 bực_tức:không_cảm_xúc

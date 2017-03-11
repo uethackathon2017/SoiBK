@@ -147,9 +147,11 @@ function evalXX(sSentenceIn)
         predictions = { table.unpack (predictions, 2, #predictions -1) }
         print (convert_to_string(predictions))
 
-        local state = wordCombiner:getStateInfer(info, convert_to_string(predictions))
+        --  local state = wordCombiner:getStateInfer(info, convert_to_string(predictions))
+        local state = wordCombiner:getStateInfer2(info, predictions, form_manager)
         local sJsonResult = string.format("{%s:\"%s\", %s:\"%s\"}", 
             "state", state["state"], "feel", state["feel"])
         return (sJsonResult)
     end
 end
+-- print (evalXX("tôi vừa mệt_mỏi vừa buồn_ngủ quá"))
