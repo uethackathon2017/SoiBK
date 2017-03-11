@@ -23,10 +23,11 @@ public class StaticConfig {
     public static String INTENT_KEY_CHAT_ROOM_ID = "roomid";
     public static long TIME_TO_REFRESH = 10 * 1000;
     public static long TIME_TO_OFFLINE = 2 * 60 * 1000;
-
+    public static int  CLICK_ACTION_THRESHHOLD =5;
     public static String KEY_SHOW_EMOTION = "id";
     public static int VALUE_STOP_EMOTION = -1;
     public static int VALUE_DEFAULT_EMOTION = R.drawable.x;
+    public static int VALUE_PLAY_MUSIC_EMOTION = R.drawable.ac;
 
     public static Map<String, Integer> MAP_EMOTION = new HashMap<>();
 

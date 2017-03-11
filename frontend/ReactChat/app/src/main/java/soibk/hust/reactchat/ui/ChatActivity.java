@@ -130,7 +130,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             recyclerChat.setAdapter(adapter);
         }
 
-//        changeBackground("https://i.imgur.com/5TWTJr3.jpg");
+//        changeBackground("http://androidwalls.net/wp-content/uploads/2016/08/Pikachu%20Pokemon%20Go%20Character%20Minimal%20Android%20Wallpaper.jpg");
     }
 
     /**
@@ -180,12 +180,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void callAPIToDetectEmotion(String message) {
-        APIUtils.getDetectEmotionAPI(message).enqueue(new Callback<Emotion>() {
+        APIUtils.getDetectEmotionAPI(message.toLowerCase()).enqueue(new Callback<Emotion>() {
             @Override
             public void onResponse(Call<Emotion> call, Response<Emotion> response) {
                 try {
                     Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
                     ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()));
+                    if(response.body().getWallpaper() != null) {
+                        changeBackground(response.body().getWallpaper());
+                    }
+
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();

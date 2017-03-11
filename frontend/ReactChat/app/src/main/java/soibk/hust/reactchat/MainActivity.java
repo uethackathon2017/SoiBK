@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         ServiceFrendChatUtils.startServiceFriendChat(getApplicationContext());
+        ReactEmotionServiceUtils.stopReactEmotionService(getApplicationContext());
         super.onDestroy();
     }
 
