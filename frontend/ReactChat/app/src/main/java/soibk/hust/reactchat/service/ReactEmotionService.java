@@ -39,7 +39,7 @@ public class ReactEmotionService extends Service {
             prepareShowGif();
         }
         if (intent != null) {
-            showEmotion(intent.getIntExtra(StaticConfig.KEY_SHOW_EMOTION, StaticConfig.VALUE_STOP_EMOTION));
+            showEmotion(intent.getIntExtra(StaticConfig.KEY_SHOW_EMOTION, StaticConfig.VALUE_STOP_EMOTION), null);
         }
         return START_STICKY;
     }
@@ -49,7 +49,7 @@ public class ReactEmotionService extends Service {
      *
      * @param id
      */
-    public void showEmotion(int id) {
+    public void showEmotion(int id, String urlAudio) {
         countDownTimer.cancel();
         if (id == StaticConfig.VALUE_STOP_EMOTION) {
             invisibleEmotion();
@@ -57,6 +57,8 @@ public class ReactEmotionService extends Service {
             chatHead.setImageResource(id);
             if (id != StaticConfig.VALUE_DEFAULT_EMOTION && id != StaticConfig.VALUE_PLAY_MUSIC_EMOTION) {
                 countDownTimer.start();
+            }else if(id == StaticConfig.VALUE_PLAY_MUSIC_EMOTION && urlAudio != null){
+                startStreamMusic(urlAudio);
             }
             try {
                 windowManager.removeView(chatHead);
@@ -95,14 +97,14 @@ public class ReactEmotionService extends Service {
     }
 
     private void prepareShowGif() {
-        countDownTimer = new CountDownTimer(5000, 5000) {
+        countDownTimer = new CountDownTimer(10000, 10000) {
             @Override
             public void onTick(long l) {
             }
 
             @Override
             public void onFinish() {
-                showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION);
+                showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION, null);
             }
         };
 
@@ -139,9 +141,9 @@ public class ReactEmotionService extends Service {
                         float endX = event.getRawX();
                         float endY = event.getRawY();
                         if (isAClick(initialTouchX, endX, initialTouchY, endY)) {
-                            //                stopStreamMusic();
-                            showEmotion(StaticConfig.MAP_EMOTION.get("ac"));
-                            startStreamMusic("http://320.s1.mp3.zdn.vn/65f714fdfbb912e74ba8/3957087340509527650?key=qCzD2liBoUMPMHJvU0Wv-A&expires=1489303215");
+                            stopStreamMusic();
+//                            showEmotion(StaticConfig.MAP_EMOTION.get("ac"), null);
+//                            startStreamMusic("http://320.s1.mp3.zdn.vn/65f714fdfbb912e74ba8/3957087340509527650?key=qCzD2liBoUMPMHJvU0Wv-A&expires=1489303215");
                         }
                         return false;
                     case MotionEvent.ACTION_MOVE:
@@ -155,14 +157,6 @@ public class ReactEmotionService extends Service {
                 return false;
             }
         });
-
-//        chatHead.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//
-//                return true;
-//            }
-//        });
     }
 
     private boolean isAClick(float startX, float endX, float startY, float endY) {
@@ -192,6 +186,7 @@ public class ReactEmotionService extends Service {
                 mediaPlayer.stop();
             }
             mediaPlayer.release();
+            showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION, null);
         }
         mediaPlayer = null;
     }
@@ -213,7 +208,7 @@ public class ReactEmotionService extends Service {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         stopStreamMusic();
-                        showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION);
+                        showEmotion(StaticConfig.VALUE_DEFAULT_EMOTION, null);
                     }
                 });
                 try {

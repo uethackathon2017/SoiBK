@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -136,9 +137,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Thay doi hinh nen chat
      *
-     * @param url
+     * @param rawUrl
      */
-    private void changeBackground(String url) {
+    private void changeBackground(String rawUrl) {
+        String url = rawUrl.replaceAll(" ", "%20");
         Picasso picasso = new Picasso.Builder(this).build();
         picasso.load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(chatBackground);
     }
@@ -185,8 +187,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<Emotion> call, Response<Emotion> response) {
                 try {
                     Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
-                    ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()));
-                    if(response.body().getWallpaper() != null) {
+                    if (response.body().getMusic() != null) {
+                        ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()), response.body().getMusic() );
+                    } else {
+                        ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()), null);
+                    }
+                    if (response.body().getWallpaper() != null) {
                         changeBackground(response.body().getWallpaper());
                     }
 
@@ -195,6 +201,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<Emotion> call, Throwable t) {
                 Toast.makeText(ChatActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

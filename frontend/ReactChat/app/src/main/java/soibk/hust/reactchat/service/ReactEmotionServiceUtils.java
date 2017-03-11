@@ -36,11 +36,11 @@ public class ReactEmotionServiceUtils extends ServiceUtils{
 
     public static void startReactEmotionService(Context context) {
         if (!isServiceRunning(context, ReactEmotionService.class)) {
-            changeEmotion(context, StaticConfig.VALUE_DEFAULT_EMOTION);
+            changeEmotion(context, StaticConfig.VALUE_DEFAULT_EMOTION, null);
         }
     }
 
-    public static void changeEmotion(Context context, final int id){
+    public static void changeEmotion(Context context, final int id, final String url){
         if (!isServiceRunning(context, ReactEmotionService.class)) {
             Intent myIntent = new Intent(context, ReactEmotionService.class);
             myIntent.putExtra(StaticConfig.KEY_SHOW_EMOTION, id);
@@ -51,7 +51,7 @@ public class ReactEmotionServiceUtils extends ServiceUtils{
                 public void onServiceConnected(ComponentName className,
                                                IBinder service) {
                     ReactEmotionService.LocalBinder binder = (ReactEmotionService.LocalBinder) service;
-                    binder.getService().showEmotion(id);
+                    binder.getService().showEmotion(id, url);
                 }
 
                 @Override
