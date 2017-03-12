@@ -403,8 +403,6 @@ function WordCombiner:getStateInfer2(infoCombined, stateInferedTbl, form_manager
     end
     
     -- get word - save and return 
-    print (feelInfo)
-    print (stateInfo)
     if (feelInfo ~= nil) then 
         lstStateRet["feel"] = self:findInDictRecombine(feelInfo)
     end 
@@ -412,9 +410,7 @@ function WordCombiner:getStateInfer2(infoCombined, stateInferedTbl, form_manager
         lstStateRet["state"] = self:findInDictRecombine(stateInfo)
     end 
     
-    print ("sdfsdfsdf")
     print (lstStateRet)
-    print ("sdfsdfsdf")
     return lstStateRet
 end
 

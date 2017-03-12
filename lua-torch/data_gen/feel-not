@@ -5,6 +5,7 @@ khó_chịu:thoải_mái
 vui:buồn_chán
 vui_vẻ:buồn_chán
 vui_sướng:buồn_chán
+sướng:khổ
 nhột:không_cảm_xúc
 nhồn_nhột:không_cảm_xúc
 hồi_hộp:tự_tin
@@ -27,6 +28,7 @@ sợ_hãi:dũng_cảm
 bất_cần:vui_vẻ
 đau:vui
 đau_khổ:vui_sướng
+khổ:vui_sướng
 đau_đớn:vui_sướng
 tuyệt_vọng:tự_tin
 cô_đơn:vui_vẻ
@@ -35,3 +37,11 @@ lạc_lõng:vui_vẻ
 phẫn_nộ:không_cảm_xúc
 bực_tức:không_cảm_xúc
 không_cảm_xúc:vui_sướng
+yêu:cô_đơn
+bực:vui_vẻ
+bực_mình:vui_vẻ
+cay:vui_vẻ
+acay:vui_vẻ
+cay_cú:vui_vẻ
+cay_đắng:vui_vẻ
+đắng_lòng:vui_vẻ

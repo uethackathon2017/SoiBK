@@ -140,7 +140,6 @@ function evalXX(sSentenceIn)
         local sSentence, info =  wordCombiner:combineSentence (sSentenceIn)--("lan thấy casi gi hi vãi")
         local sentenceId = word_manager:get_symbol_idx_for_list(sSentence:split(" "))
         print ( word_manager_convert_to_string(sentenceId))
-        print (sSentence)
         print (info)
 
         local predictions = model:eval (sentenceId)
@@ -154,4 +153,10 @@ function evalXX(sSentenceIn)
         return (sJsonResult)
     end
 end
--- print (evalXX("tôi vừa mệt_mỏi vừa buồn_ngủ quá"))
+print (evalXX("tôi đang ăn cơm"))
+print (evalXX("tôi đang đá bóng"))
+print (evalXX("bạn có khỏe không"))
+print (evalXX("mình đi chơi đi"))
+print (evalXX("bạn đang vui à"))
+print (evalXX("bạn chơi có vui không"))
+
