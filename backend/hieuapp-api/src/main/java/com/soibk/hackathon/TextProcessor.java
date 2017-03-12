@@ -8,12 +8,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
+import vn.hus.nlp.fsm.jaxb.S;
 import vn.hus.nlp.tokenizer.VietTokenizer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Random;
@@ -30,7 +33,10 @@ public class TextProcessor {
 
     private final String LUA_URL = "http://10.10.215.60:18081/modelLua/data";
 
-    private final String DEFAULT_VALUE = "bình_thường";
+    private final String STATE_DEFAULT_VALUE = "bình_thường";
+    private final String FEEL_DEFAULT_VALUE = "không_cảm_xúc";
+
+    private Random random = new Random();
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,28 +44,28 @@ public class TextProcessor {
     public Media fragmentText(@FormParam("message") String message){
         System.out.println("receiver message: " + message);
 
-//        Runtime rt = Runtime.getRuntime();
-//        Process pr;
-//        try {
-//            pr = rt.exec("pwd");
-//            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-//            String line = null;
-//
-//            try {
-//                while ((line = input.readLine()) != null)
-//                    System.out.println(line);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Runtime rt = Runtime.getRuntime();
+        Process pr;
+        String line = "ooo";
+        try {
+            pr = rt.exec("bash run.sh");
+            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+
+            try {
+                while ((line = input.readLine()) != null)
+                    System.out.println(line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         /**
          * Natural Language Processing
          */
-        String processedResult = "";
+        String processedResult = line;
 //
 //        VietTokenizer vietTokenizer = SoiBKContextDeploy.getTokenizer();
 //        String result = vietTokenizer.tokenize(message)[0];
@@ -89,27 +95,32 @@ public class TextProcessor {
         try{
             if(ConfigApp.DEBUG){
                 JSONObject stateResult = new JSONObject();
-                stateResult.put("state", DEFAULT_VALUE);
+                stateResult.put("state", STATE_DEFAULT_VALUE);
                 stateResult.put("feel", message);
                 processedResult = stateResult.toString();
             }
+
 
             JSONObject jsonObject = new JSONObject(processedResult);
             String state = jsonObject.getString("state");
             String feel = jsonObject.getString("feel");
 
-            if(!feel.equals(DEFAULT_VALUE)){
+            if(!feel.equals(FEEL_DEFAULT_VALUE)){
                 media = getResponseMedia(feel);
                 return media;
             }
 
-            if(!state.equals(DEFAULT_VALUE)){
+            if(!state.equals(STATE_DEFAULT_VALUE)){
                 media = getResponseMedia(state);
+                String[] product = MediaStore.mapProduct.get(state);
+                media.setQuestion(product[0]);
+                media.setAnswer(product[1]);
+                media.setProduct(product[2]);
                 return media;
             }else {
                 media = new Media();
-                media.setLabel(DEFAULT_VALUE);
-                media.setIcon(MediaStore.feelMapIcon.get(DEFAULT_VALUE));
+                media.setLabel(FEEL_DEFAULT_VALUE);
+                media.setIcon(MediaStore.feelMapIcon.get(FEEL_DEFAULT_VALUE));
                 return media;
             }
         }catch (JSONException e){
@@ -172,13 +183,12 @@ public class TextProcessor {
     private Media getDefaultMedia(String state) {
         Media media = new Media();
         media.setLabel(state);
-        media.setIcon(MediaStore.feelMapIcon.get(DEFAULT_VALUE));
+        media.setIcon(MediaStore.feelMapIcon.get(FEEL_DEFAULT_VALUE));
 
         return media;
     }
 
     private int getRandomItem(int max){
-        Random random = new Random();
         return random.nextInt(max + 1);
     }
 

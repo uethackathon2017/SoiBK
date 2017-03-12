@@ -5,5 +5,5 @@ package com.soibk.hackathon;
  */
 public class ConfigApp {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 }

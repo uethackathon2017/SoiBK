@@ -21,7 +21,9 @@ public class Media {
 
     private String product;
 
-    private String story;
+    private String question;
+
+    private String answer;
 
     public Media() {
     }
@@ -50,8 +52,8 @@ public class Media {
         return product;
     }
 
-    public String getStory() {
-        return story;
+    public String getQuestion() {
+        return question;
     }
 
     public void setLabel(String label) {
@@ -78,7 +80,15 @@ public class Media {
         this.product = product;
     }
 
-    public void setStory(String story) {
-        this.story = story;
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }
