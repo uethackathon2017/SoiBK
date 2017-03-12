@@ -25,6 +25,7 @@ function ParamsParser()
         cmd:option('--training', false, 'training with data ')
         cmd:option('--testing', false, 'tst with data sample')
         cmd:option('--eval', true, 'run test with new sample ')
+        cmd:option('--input', "", 'input from cmd')
 
         cmd:option('--countLoopOneBatchSize', 5, 'so lan lap lai 1 batchInputs cau')
         cmd:option('--nameNet', "brnnLstm", 'Cai dat ten mang Neron: rnn/rnnLstm/brnnLstm')

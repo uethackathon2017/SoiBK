@@ -1,0 +1,1 @@
+th Main.lua --isUsedCuda --input "$*"

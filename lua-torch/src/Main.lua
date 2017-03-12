@@ -153,10 +153,12 @@ function evalXX(sSentenceIn)
         return (sJsonResult)
     end
 end
-print (evalXX("tôi đang ăn cơm"))
-print (evalXX("tôi đang đá bóng"))
-print (evalXX("bạn có khỏe không"))
-print (evalXX("mình đi chơi đi"))
-print (evalXX("bạn đang vui à"))
-print (evalXX("bạn chơi có vui không"))
+print (opt.input)
+print (evalXX(opt.input))
+
+-- print (evalXX("tôi đang đá bóng"))
+-- print (evalXX("bạn có khỏe không"))
+-- print (evalXX("mình đi chơi đi"))
+-- print (evalXX("bạn đang vui à"))
+-- print (evalXX("bạn chơi có vui không"))
 
