@@ -12,6 +12,6 @@ import soibk.hust.reactchat.model.Emotion;
 
 public interface DetectEmotionAPI {
     @FormUrlEncoded
-    @POST("api/upload")
+    @POST("reactchat/api/upload")
     Call<Emotion> detectEmotion(@Field("message") String message);
 }

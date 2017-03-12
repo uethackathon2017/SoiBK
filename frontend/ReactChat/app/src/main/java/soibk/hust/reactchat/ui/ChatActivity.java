@@ -195,7 +195,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<Emotion> call, Response<Emotion> response) {
                 try {
-                    Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
                     if (response.body().getMusic() != null) {
                         ReactEmotionServiceUtils.changeEmotion(getApplicationContext(), StaticConfig.MAP_EMOTION.get(response.body().getIcon()), response.body().getMusic());
                     } else {
