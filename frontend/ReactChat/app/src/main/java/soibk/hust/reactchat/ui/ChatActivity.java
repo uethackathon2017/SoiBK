@@ -191,7 +191,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
      * @param message
      */
     private void callAPIToDetectEmotion(String message) {
-        headNotify("Bạn đang đói?", "Đói thì ăn thôi", "https://google.com");
         APIUtils.getDetectEmotionAPI(message.toLowerCase()).enqueue(new Callback<Emotion>() {
             @Override
             public void onResponse(Call<Emotion> call, Response<Emotion> response) {
@@ -204,6 +203,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     if (response.body().getWallpaper() != null) {
                         changeBackground(response.body().getWallpaper());
+                    }
+                    if(response.body().getQuestion() != null){
+                        headNotify(response.body().getQuestion(), response.body().getAnswer(), response.body().getProduct());
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
