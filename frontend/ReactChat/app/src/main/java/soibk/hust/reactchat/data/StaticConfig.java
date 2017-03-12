@@ -28,6 +28,7 @@ public class StaticConfig {
     public static int VALUE_STOP_EMOTION = -1;
     public static int VALUE_DEFAULT_EMOTION = R.drawable.x;
     public static int VALUE_PLAY_MUSIC_EMOTION = R.drawable.ac;
+    public static String DEFAULT_HOST_API = "http://10.10.215.51:8080";
 
     public static Map<String, Integer> MAP_EMOTION = new HashMap<>();
 

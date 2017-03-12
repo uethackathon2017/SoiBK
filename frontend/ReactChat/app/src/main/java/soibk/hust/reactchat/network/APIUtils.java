@@ -3,6 +3,7 @@ package soibk.hust.reactchat.network;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import soibk.hust.reactchat.data.StaticConfig;
 import soibk.hust.reactchat.model.Emotion;
 
 /**
@@ -12,7 +13,7 @@ import soibk.hust.reactchat.model.Emotion;
 public class APIUtils {
     public static Call<Emotion> getDetectEmotionAPI(String message) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.10.215.51:8080")
+                .baseUrl(StaticConfig.DEFAULT_HOST_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

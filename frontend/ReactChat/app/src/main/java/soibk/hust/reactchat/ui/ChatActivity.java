@@ -1,10 +1,15 @@
 package soibk.hust.reactchat.ui;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -136,9 +141,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Thay doi hinh nen chat
      *
-     * @param url
+     * @param rawUrl
      */
-    private void changeBackground(String url) {
+    private void changeBackground(String rawUrl) {
+        String url = rawUrl.replaceAll(" ", "%20");
         Picasso picasso = new Picasso.Builder(this).build();
         picasso.load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(chatBackground);
     }
@@ -179,27 +185,69 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Send message to server to detect emotion
+     *
+     * @param message
+     */
     private void callAPIToDetectEmotion(String message) {
         APIUtils.getDetectEmotionAPI(message.toLowerCase()).enqueue(new Callback<Emotion>() {
             @Override
             public void onResponse(Call<Emotion> call, Response<Emotion> response) {
                 try {
                     Toast.makeText(ChatActivity.this, response.body().getLabel(), Toast.LENGTH_SHORT).show();
-                    ReactEmotionServiceUtils.changeEmotion(ChatActivity.this, StaticConfig.MAP_EMOTION.get(response.body().getIcon()));
-                    if(response.body().getWallpaper() != null) {
+                    if (response.body().getMusic() != null) {
+                        ReactEmotionServiceUtils.changeEmotion(getApplicationContext(), StaticConfig.MAP_EMOTION.get(response.body().getIcon()), response.body().getMusic());
+                    } else {
+                        ReactEmotionServiceUtils.changeEmotion(getApplicationContext(), StaticConfig.MAP_EMOTION.get(response.body().getIcon()), null);
+                    }
+                    if (response.body().getWallpaper() != null) {
                         changeBackground(response.body().getWallpaper());
                     }
-
+                    if(response.body().getQuestion() != null){
+                        headNotify(response.body().getQuestion(), response.body().getAnswer(), response.body().getProduct());
+                    }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<Emotion> call, Throwable t) {
                 Toast.makeText(ChatActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /**
+     * Hien notify khi detect dc state
+     * @param question
+     * @param answer
+     * @param url
+     */
+    public void headNotify(String question, String answer, String url) {
+        //build notification
+        //set intents and pending intents to call service on click of "dismiss" action button of notification
+        Intent dismissIntent= new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        PendingIntent piDismiss = PendingIntent.getActivity(this, 0, dismissIntent, 0);
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ideal)
+                        .setContentTitle(question)
+                        .setContentText(answer)
+                        .setDefaults(Notification.DEFAULT_ALL) // must requires VIBRATE permission
+                        .setPriority(NotificationCompat.PRIORITY_HIGH) //must give priority to High, Max which will considered as heads-up notification
+                        .addAction(R.drawable.watch_now,
+                                "Xem ngay", piDismiss)
+                        .setAutoCancel(true);
+
+        // Gets an instance of the NotificationManager service
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //to post your notification to the notification bar with a id. If a notification with same id already exists, it will get replaced with updated information.
+        notificationManager.notify(0, builder.build());
     }
 }
 
